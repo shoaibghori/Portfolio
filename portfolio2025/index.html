@@ -1,0 +1,1049 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Creative Portfolio - Web Designer</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        /* Custom Properties */
+        :root {
+            --primary-color: #6366f1;
+            --secondary-color: #8b5cf6;
+            --accent-color: #06b6d4;
+            --dark-bg: #0f172a;
+            --card-bg: #1e293b;
+            --text-primary: #f8fafc;
+            --text-secondary: #cbd5e1;
+            --gradient-1: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --gradient-2: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            --gradient-3: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            --shadow-color: rgba(99, 102, 241, 0.25);
+            --glow-color: rgba(99, 102, 241, 0.4);
+        }
+
+        /* Reset & Base Styles */
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            background: var(--dark-bg);
+            color: var(--text-primary);
+            overflow-x: hidden;
+        }
+
+        /* Animated Background */
+        .bg-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: var(--dark-bg);
+        }
+
+        .bg-animation::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 50%, rgba(99, 102, 241, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(139, 92, 246, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 40% 80%, rgba(6, 182, 212, 0.1) 0%, transparent 50%);
+            animation: backgroundMove 20s ease-in-out infinite;
+        }
+
+        @keyframes backgroundMove {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(1deg); }
+        }
+
+        /* Header Styles */
+        header {
+            text-align: center;
+            padding: 80px 20px 60px;
+            position: relative;
+        }
+
+        .header-content {
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+
+        .header-title {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 800;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 20px;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        .header-subtitle {
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            margin-bottom: 30px;
+            animation: fadeInUp 1s ease-out 0.2s both;
+        }
+
+        .stats-container {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin-top: 40px;
+            animation: fadeInUp 1s ease-out 0.4s both;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            display: block;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Portfolio Grid */
+        .portfolio-section {
+            padding: 60px 20px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 4px;
+            background: var(--gradient-1);
+            border-radius: 2px;
+        }
+
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            padding: 20px 0;
+        }
+
+        .portfolio-item {
+            position: relative;
+            background: var(--card-bg);
+            border-radius: 20px;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            animation: fadeInUp 0.6s ease-out both;
+        }
+
+        .portfolio-item:nth-child(even) {
+            animation-delay: 0.1s;
+        }
+
+        .portfolio-item:nth-child(3n) {
+            animation-delay: 0.2s;
+        }
+
+        .portfolio-item:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 
+                0 20px 40px rgba(0, 0, 0, 0.3),
+                0 0 30px var(--shadow-color);
+        }
+
+        .portfolio-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: var(--gradient-1);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: 1;
+        }
+
+        .portfolio-item:hover::before {
+            opacity: 0.1;
+        }
+
+        .portfolio-link {
+            display: block;
+            text-decoration: none;
+            color: inherit;
+            height: 100%;
+            position: relative;
+            z-index: 2;
+        }
+
+        .image-container {
+            position: relative;
+            height: 240px;
+            overflow: hidden;
+        }
+
+        .portfolio-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.4s ease;
+        }
+
+        .portfolio-item:hover .portfolio-image {
+            transform: scale(1.1);
+        }
+
+        .image-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(
+                45deg,
+                rgba(99, 102, 241, 0.8) 0%,
+                rgba(139, 92, 246, 0.8) 100%
+            );
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .portfolio-item:hover .image-overlay {
+            opacity: 1;
+        }
+
+        .overlay-icon {
+            font-size: 2rem;
+            color: white;
+            transform: translateY(20px);
+            transition: transform 0.3s ease;
+        }
+
+        .portfolio-item:hover .overlay-icon {
+            transform: translateY(0);
+        }
+
+        .content-area {
+            padding: 25px;
+            position: relative;
+        }
+
+        .portfolio-title {
+            font-size: 1.4rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: var(--text-primary);
+            transition: color 0.3s ease;
+        }
+
+        .portfolio-item:hover .portfolio-title {
+            color: var(--primary-color);
+        }
+
+        .portfolio-category {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 15px;
+        }
+
+        .project-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 15px;
+        }
+
+        .tag {
+            padding: 4px 12px;
+            background: rgba(99, 102, 241, 0.2);
+            color: var(--primary-color);
+            border-radius: 20px;
+            font-size: 0.8rem;
+            border: 1px solid rgba(99, 102, 241, 0.3);
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 60px 20px 40px;
+            margin-top: 80px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            background: rgba(30, 41, 59, 0.5);
+            backdrop-filter: blur(10px);
+        }
+
+        .footer-content {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .social-link {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: var(--gradient-1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-decoration: none;
+            transition: transform 0.3s ease;
+            font-size: 1.2rem;
+        }
+
+        .social-link:hover {
+            transform: translateY(-5px);
+        }
+
+        .footer-text {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .portfolio-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .stats-container {
+                flex-direction: column;
+                gap: 20px;
+            }
+
+            .header-title {
+                font-size: 2.5rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .portfolio-item {
+                margin: 0 10px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .portfolio-section {
+                padding: 40px 10px;
+            }
+
+            .header-content {
+                padding: 0 10px;
+            }
+        }
+
+        /* Loading Animation */
+        .portfolio-item {
+            animation: fadeInUp 0.6s ease-out both;
+        }
+
+        /* Hover Glow Effect */
+        .portfolio-item::after {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: var(--gradient-1);
+            border-radius: 22px;
+            z-index: -1;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .portfolio-item:hover::after {
+            opacity: 0.3;
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-animation"></div>
+    
+    <header>
+        <div class="header-content">
+            <h1 class="header-title">Creative Portfolio</h1>
+            <p class="header-subtitle">Crafting Digital Experiences Through Innovative Web Design</p>
+            
+            <div class="stats-container">
+                <div class="stat-item">
+                    <span class="stat-number">100+</span>
+                    <span class="stat-label">Projects</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">9+</span>
+                    <span class="stat-label">Years</span>
+                </div>
+
+            </div>
+        </div>
+    </header>
+
+    <section class="portfolio-section">
+        <div class="section-header">
+            <h2 class="section-title">Featured Work</h2>
+        </div>
+
+        <div class="portfolio-grid">
+            <div class="portfolio-item">
+                <a href="https://shoaibghori.github.io/gymkhana-election/" target="_blank" rel="noopener noreferrer" class="portfolio-link">
+                    <div class="image-container">
+                        <img src="images/gymkhana-website-thumbnail.jpg" alt="Gymkhana Election Website" class="portfolio-image">
+                        <div class="image-overlay">
+                            <i class="fas fa-external-link-alt overlay-icon"></i>
+                        </div>
+                    </div>
+                    <div class="content-area">
+                        <div class="portfolio-category">Political Platform</div>
+                        <h3 class="portfolio-title">Gymkhana Election</h3>
+                        <div class="project-tags">
+                            <span class="tag">HTML</span>
+                            <span class="tag">CSS</span>
+                            <span class="tag">JavaScript</span>
+                        </div>
+                    </div>
+                </a>
+            </div>
+
+            <div class="portfolio-item">
+                <a href="https://app.coincidenceai.xyz/auth" target="_blank" rel="noopener noreferrer" class="portfolio-link">
+                    <div class="image-container">
+                        <img src="images/coincidence-thumbnail.jpg" alt="coincidence  Website" class="portfolio-image">
+                        <div class="image-overlay">
+                            <i class="fas fa-external-link-alt overlay-icon"></i>
+                        </div>
+                    </div>
+                    <div class="content-area">
+                        <div class="portfolio-category">Trading Engine</div>
+                        <h3 class="portfolio-title">Coincidence AI</h3>
+                        <div class="project-tags">
+                            <span class="tag">React</span>
+                            <span class="tag">Supabase</span>
+                            <span class="tag">UX/UI</span>
+                        </div>
+                    </div>
+                </a>
+            </div>
+
+            <div class="portfolio-item">
+                <a href="https://msghori.github.io/nextitbridge/" target="_blank" rel="noopener noreferrer" class="portfolio-link">
+                    <div class="image-container">
+                        <img src="images/nextitbridge-thumbnail.jpg" alt="Next IT Bridge Website" class="portfolio-image">
+                        <div class="image-overlay">
+                            <i class="fas fa-external-link-alt overlay-icon"></i>
+                        </div>
+                    </div>
+                    <div class="content-area">
+                        <div class="portfolio-category">Technology</div>
+                        <h3 class="portfolio-title">Next IT Bridge</h3>
+                        <div class="project-tags">
+                            <span class="tag">React</span>
+                            <span class="tag">Node.js</span>
+                            <span class="tag">Bootstrap</span>
+                        </div>
+                    </div>
+                </a>
+            </div>
+
+            <div class="portfolio-item">
+                <a href="https://primis.ai/" target="_blank" rel="noopener noreferrer" class="portfolio-link">
+                    <div class="image-container">
+                        <img src="images/primis-thumbnail.jpg" alt="Primis AI Website" class="portfolio-image">
+                        <div class="image-overlay">
+                            <i class="fas fa-external-link-alt overlay-icon"></i>
+                        </div>
+                    </div>
+                    <div class="content-area">
+                        <div class="portfolio-category">Artificial Intelligence</div>
+                        <h3 class="portfolio-title">Primis AI</h3>
+                        <div class="project-tags">
+                            <span class="tag">AI/ML</span>
+                            <span class="tag">Vue.js</span>
+                            <span class="tag">Python</span>
+                        </div>
+                    </div>
+                </a>
+            </div>
+
+            <div class="portfolio-item">
+                <a href="https://exactwebs.com//portfolio/arcana/index.html" target="_blank" rel="noopener noreferrer" class="portfolio-link">
+                    <div class="image-container">
+                        <img src="images/arcana-thumbnail.jpg" alt="Arcana Semi Website" class="portfolio-image">
+                        <div class="image-overlay">
+                            <i class="fas fa-external-link-alt overlay-icon"></i>
+                        </div>
+                    </div>
+                    <div class="content-area">
+                        <div class="portfolio-category">Semiconductor</div>
+                        <h3 class="portfolio-title">Arcana Semi</h3>
+                        <div class="project-tags">
+                            <span class="tag">Corporate</span>
+                            <span class="tag">SCSS</span>
+                            <span class="tag">jQuery</span>
+                        </div>
+                    </div>
+                </a>
+            </div>
+
+            <div class="portfolio-item">
+                <a href="https://exactwebs.com//portfolio/Pak-construction/index.html" target="_blank" rel="noopener noreferrer" class="portfolio-link">
+                    <div class="image-container">
+                        <img src="images/pak-construction-thumbnail.jpg" alt="Pak Construction Website" class="portfolio-image">
+                        <div class="image-overlay">
+                            <i class="fas fa-external-link-alt overlay-icon"></i>
+                        </div>
+                    </div>
+                    <div class="content-area">
+                        <div class="portfolio-category">Construction</div>
+                        <h3 class="portfolio-title">Pak Construction</h3>
+                        <div class="project-tags">
+                            <span class="tag">Industrial</span>
+                            <span class="tag">WordPress</span>
+                            <span class="tag">PHP</span>
+                        </div>
+                    </div>
+                </a>
+            </div>
+
+            <div class="portfolio-item">
+                <a href="https://shoaibghori.github.io/openfive/" target="_blank" rel="noopener noreferrer" class="portfolio-link">
+                    <div class="image-container">
+                        <img src="images/openfive-thumbnail.jpg" alt="OpenFive Website" class="portfolio-image">
+                        <div class="image-overlay">
+                            <i class="fas fa-external-link-alt overlay-icon"></i>
+                        </div>
+                    </div>
+                    <div class="content-area">
+                        <div class="portfolio-category">Tech Startup</div>
+                        <h3 class="portfolio-title">OpenFive</h3>
+                        <div class="project-tags">
+                            <span class="tag">Startup</span>
+                            <span class="tag">Angular</span>
+                            <span class="tag">TypeScript</span>
+                        </div>
+                    </div>
+                </a>
+            </div>
+
+            <div class="portfolio-item">
+                <a href="https://carboulevard.com.pk/" target="_blank" rel="noopener noreferrer" class="portfolio-link">
+                    <div class="image-container">
+                        <img src="images/carboulevard-thumbnail.jpg" alt="Car Boulevard Website" class="portfolio-image">
+                        <div class="image-overlay">
+                            <i class="fas fa-external-link-alt overlay-icon"></i>
+                        </div>
+                    </div>
+                    <div class="content-area">
+                        <div class="portfolio-category">Automotive</div>
+                        <h3 class="portfolio-title">Car Boulevard</h3>
+                        <div class="project-tags">
+                            <span class="tag">E-commerce</span>
+                            <span class="tag">Laravel</span>
+                            <span class="tag">MySQL</span>
+                        </div>
+                    </div>
+                </a>
+            </div>
+
+            <!-- Additional portfolio items with similar structure -->
+            <div class="portfolio-item">
+                <a href="https://exactwebs.com//portfolio/Medical/index.html" target="_blank" rel="noopener noreferrer" class="portfolio-link">
+                    <div class="image-container">
+                        <img src="images/medical-thumbnail.jpg" alt="Medical Website" class="portfolio-image">
+                        <div class="image-overlay">
+                            <i class="fas fa-external-link-alt overlay-icon"></i>
+                        </div>
+                    </div>
+                    <div class="content-area">
+                        <div class="portfolio-category">Healthcare</div>
+                        <h3 class="portfolio-title">Medical Center</h3>
+                        <div class="project-tags">
+                            <span class="tag">Healthcare</span>
+                            <span class="tag">Responsive</span>
+                            <span class="tag">UX/UI</span>
+                        </div>
+                    </div>
+                </a>
+            </div>
+
+            <div class="portfolio-item">
+                <a href="https://exactwebs.com//portfolio/Creative/index.html" target="_blank" rel="noopener noreferrer" class="portfolio-link">
+                    <div class="image-container">
+                        <img src="images/creative-thumbnail.jpg" alt="Creative Website" class="portfolio-image">
+                        <div class="image-overlay">
+                            <i class="fas fa-external-link-alt overlay-icon"></i>
+                        </div>
+                    </div>
+                    <div class="content-area">
+                        <div class="portfolio-category">Creative Agency</div>
+                        <h3 class="portfolio-title">Creative Studio</h3>
+                        <div class="project-tags">
+                            <span class="tag">Creative</span>
+                            <span class="tag">Animation</span>
+                            <span class="tag">GSAP</span>
+                        </div>
+                    </div>
+                </a>
+            </div>
+
+
+             <div class="portfolio-item">
+                <a href="https://shoaibghori.github.io/uwr/" target="_blank" rel="noopener noreferrer" class="portfolio-link">
+                    <div class="image-container">
+                        <img src="images/uwr-thumbnail.jpg" alt="Creative Website" class="portfolio-image">
+                        <div class="image-overlay">
+                            <i class="fas fa-external-link-alt overlay-icon"></i>
+                        </div>
+                    </div>
+                    <div class="content-area">
+                        <div class="portfolio-category">NGO</div>
+                        <h3 class="portfolio-title">UWR</h3>
+                        <div class="project-tags">
+                            <span class="tag">Creative</span>
+                            <span class="tag">Responsive</span>
+                            <span class="tag">UX/UI</span>
+                        </div>
+                    </div>
+                </a>
+            </div>
+
+
+            <div class="portfolio-item">
+                <a href="https://shoaibghori.github.io/chinafive/index.html" target="_blank" rel="noopener noreferrer" class="portfolio-link">
+                    <div class="image-container">
+                        <img src="images/chinafive-thumbnail.jpg" alt="chinafive  Website" class="portfolio-image">
+                        <div class="image-overlay">
+                            <i class="fas fa-external-link-alt overlay-icon"></i>
+                        </div>
+                    </div>
+                    <div class="content-area">
+                        <div class="portfolio-category">Chip Designing</div>
+                        <h3 class="portfolio-title">China Five</h3>
+                        <div class="project-tags">
+                            <span class="tag">HTML/CSS</span>
+                            <span class="tag">Responsive</span>
+                            <span class="tag">UX/UI</span>
+                        </div>
+                    </div>
+                </a>
+            </div>
+
+
+
+            <div class="portfolio-item">
+                <a href="https://shoaibghori.github.io/LM-website/index.html" target="_blank" rel="noopener noreferrer" class="portfolio-link">
+                    <div class="image-container">
+                        <img src="images/lampromellon-thumbnail.jpg" alt="LM  Website" class="portfolio-image">
+                        <div class="image-overlay">
+                            <i class="fas fa-external-link-alt overlay-icon"></i>
+                        </div>
+                    </div>
+                    <div class="content-area">
+                        <div class="portfolio-category">RISC-V </div>
+                        <h3 class="portfolio-title">LM</h3>
+                        <div class="project-tags">
+                            <span class="tag">Creative</span>
+                            <span class="tag">Responsive</span>
+                            <span class="tag">UX/UI</span>
+                        </div>
+                    </div>
+                </a>
+            </div>
+
+<div class="portfolio-item">
+    <a href="https://exactwebs.com/portfolio/Adpoint/index.html" target="_blank" rel="noopener noreferrer" class="portfolio-link">
+        <div class="image-container">
+            <img src="images/adpoint-thumbnail.jpg" alt="Adpoint Website" class="portfolio-image">
+            <div class="image-overlay">
+                <i class="fas fa-external-link-alt overlay-icon"></i>
+            </div>
+        </div>
+        <div class="content-area">
+            <div class="portfolio-category">Marketing</div>
+            <h3 class="portfolio-title">Adpoint</h3>
+            <div class="project-tags">
+                <span class="tag">HTML</span>
+                <span class="tag">CSS</span>
+                <span class="tag">Bootstrap</span>
+            </div>
+        </div>
+    </a>
+</div>
+
+<div class="portfolio-item">
+    <a href="https://exactwebs.com/portfolio/Construction-New/index.html" target="_blank" rel="noopener noreferrer" class="portfolio-link">
+        <div class="image-container">
+            <img src="images/construction-new-thumbnail.jpg" alt="Construction New Website" class="portfolio-image">
+            <div class="image-overlay">
+                <i class="fas fa-external-link-alt overlay-icon"></i>
+            </div>
+        </div>
+        <div class="content-area">
+            <div class="portfolio-category">Construction</div>
+            <h3 class="portfolio-title">Construction New</h3>
+            <div class="project-tags">
+                <span class="tag">HTML</span>
+                <span class="tag">Responsive</span>
+                <span class="tag">UX</span>
+            </div>
+        </div>
+    </a>
+</div>
+
+<div class="portfolio-item">
+    <a href="https://exactwebs.com/portfolio/Construction/index.html" target="_blank" rel="noopener noreferrer" class="portfolio-link">
+        <div class="image-container">
+            <img src="images/construction-thumbnail.jpg" alt="Construction Website" class="portfolio-image">
+            <div class="image-overlay">
+                <i class="fas fa-external-link-alt overlay-icon"></i>
+            </div>
+        </div>
+        <div class="content-area">
+            <div class="portfolio-category">Construction</div>
+            <h3 class="portfolio-title">Construction</h3>
+            <div class="project-tags">
+                <span class="tag">HTML</span>
+                <span class="tag">Design</span>
+                <span class="tag">SEO</span>
+            </div>
+        </div>
+    </a>
+</div>
+
+<div class="portfolio-item">
+    <a href="https://exactwebs.com/portfolio/Creative-multipurpose/index.html" target="_blank" rel="noopener noreferrer" class="portfolio-link">
+        <div class="image-container">
+            <img src="images/creative-multipurpose-thumbnail.jpg" alt="Creative Multipurpose Website" class="portfolio-image">
+            <div class="image-overlay">
+                <i class="fas fa-external-link-alt overlay-icon"></i>
+            </div>
+        </div>
+        <div class="content-area">
+            <div class="portfolio-category">Creative</div>
+            <h3 class="portfolio-title">Creative Multipurpose</h3>
+            <div class="project-tags">
+                <span class="tag">Multipurpose</span>
+                <span class="tag">UX/UI</span>
+                <span class="tag">Bootstrap</span>
+            </div>
+        </div>
+    </a>
+</div>
+
+<div class="portfolio-item">
+    <a href="https://exactwebs.com/portfolio/Creative/index.html" target="_blank" rel="noopener noreferrer" class="portfolio-link">
+        <div class="image-container">
+            <img src="images/creative-thumbnail.jpg" alt="Creative Website" class="portfolio-image">
+            <div class="image-overlay">
+                <i class="fas fa-external-link-alt overlay-icon"></i>
+            </div>
+        </div>
+        <div class="content-area">
+            <div class="portfolio-category">Design</div>
+            <h3 class="portfolio-title">Creative</h3>
+            <div class="project-tags">
+                <span class="tag">HTML</span>
+                <span class="tag">CSS</span>
+                <span class="tag">UX</span>
+            </div>
+        </div>
+    </a>
+</div>
+
+<div class="portfolio-item">
+    <a href="https://exactwebs.com/portfolio/Electrician-web/index.html" target="_blank" rel="noopener noreferrer" class="portfolio-link">
+        <div class="image-container">
+            <img src="images/electrician-web-thumbnail.jpg" alt="Electrician Web Website" class="portfolio-image">
+            <div class="image-overlay">
+                <i class="fas fa-external-link-alt overlay-icon"></i>
+            </div>
+        </div>
+        <div class="content-area">
+            <div class="portfolio-category">Services</div>
+            <h3 class="portfolio-title">Electrician Web</h3>
+            <div class="project-tags">
+                <span class="tag">HTML</span>
+                <span class="tag">Bootstrap</span>
+                <span class="tag">Mobile Friendly</span>
+            </div>
+        </div>
+    </a>
+</div>
+
+<div class="portfolio-item">
+    <a href="https://exactwebs.com/portfolio/Medical/index.html" target="_blank" rel="noopener noreferrer" class="portfolio-link">
+        <div class="image-container">
+            <img src="images/medical-thumbnail.jpg" alt="Medical Website" class="portfolio-image">
+            <div class="image-overlay">
+                <i class="fas fa-external-link-alt overlay-icon"></i>
+            </div>
+        </div>
+        <div class="content-area">
+            <div class="portfolio-category">Healthcare</div>
+            <h3 class="portfolio-title">Medical</h3>
+            <div class="project-tags">
+                <span class="tag">Medical</span>
+                <span class="tag">UI</span>
+                <span class="tag">SEO</span>
+            </div>
+        </div>
+    </a>
+</div>
+
+<div class="portfolio-item">
+    <a href="https://exactwebs.com/portfolio/Multipurpose-Website/index.html" target="_blank" rel="noopener noreferrer" class="portfolio-link">
+        <div class="image-container">
+            <img src="images/multipurpose-website-thumbnail.jpg" alt="Multipurpose Website" class="portfolio-image">
+            <div class="image-overlay">
+                <i class="fas fa-external-link-alt overlay-icon"></i>
+            </div>
+        </div>
+        <div class="content-area">
+            <div class="portfolio-category">Multi Industry</div>
+            <h3 class="portfolio-title">Multipurpose Website</h3>
+            <div class="project-tags">
+                <span class="tag">Responsive</span>
+                <span class="tag">Modern</span>
+                <span class="tag">Clean Design</span>
+            </div>
+        </div>
+    </a>
+</div>
+
+<div class="portfolio-item">
+    <a href="https://exactwebs.com/portfolio/Real-Estate-Green/index.html" target="_blank" rel="noopener noreferrer" class="portfolio-link">
+        <div class="image-container">
+            <img src="images/real-estate-green-thumbnail.jpg" alt="Real Estate Green Website" class="portfolio-image">
+            <div class="image-overlay">
+                <i class="fas fa-external-link-alt overlay-icon"></i>
+            </div>
+        </div>
+        <div class="content-area">
+            <div class="portfolio-category">Real Estate</div>
+            <h3 class="portfolio-title">Real Estate Green</h3>
+            <div class="project-tags">
+                <span class="tag">HTML</span>
+                <span class="tag">Property</span>
+                <span class="tag">Contact Form</span>
+            </div>
+        </div>
+    </a>
+</div>
+
+<div class="portfolio-item">
+    <a href="https://exactwebs.com/portfolio/Retail/home.html" target="_blank" rel="noopener noreferrer" class="portfolio-link">
+        <div class="image-container">
+            <img src="images/retail-thumbnail.jpg" alt="Retail Website" class="portfolio-image">
+            <div class="image-overlay">
+                <i class="fas fa-external-link-alt overlay-icon"></i>
+            </div>
+        </div>
+        <div class="content-area">
+            <div class="portfolio-category">E-commerce</div>
+            <h3 class="portfolio-title">Retail</h3>
+            <div class="project-tags">
+                <span class="tag">HTML</span>
+                <span class="tag">Shop</span>
+                <span class="tag">Cart</span>
+            </div>
+        </div>
+    </a>
+</div>
+
+<div class="portfolio-item">
+    <a href="https://exactwebs.com/portfolio/consultant/index.html" target="_blank" rel="noopener noreferrer" class="portfolio-link">
+        <div class="image-container">
+            <img src="images/consultant-thumbnail.jpg" alt="Consultant Website" class="portfolio-image">
+            <div class="image-overlay">
+                <i class="fas fa-external-link-alt overlay-icon"></i>
+            </div>
+        </div>
+        <div class="content-area">
+            <div class="portfolio-category">Business</div>
+            <h3 class="portfolio-title">Consultant</h3>
+            <div class="project-tags">
+                <span class="tag">Consulting</span>
+                <span class="tag">UI</span>
+                <span class="tag">Forms</span>
+            </div>
+        </div>
+    </a>
+</div>
+
+<div class="portfolio-item">
+    <a href="https://exactwebs.com/portfolio/factory/index.html" target="_blank" rel="noopener noreferrer" class="portfolio-link">
+        <div class="image-container">
+            <img src="images/factory-thumbnail.jpg" alt="Factory Website" class="portfolio-image">
+            <div class="image-overlay">
+                <i class="fas fa-external-link-alt overlay-icon"></i>
+            </div>
+        </div>
+        <div class="content-area">
+            <div class="portfolio-category">Industrial</div>
+            <h3 class="portfolio-title">Factory</h3>
+            <div class="project-tags">
+                <span class="tag">HTML</span>
+                <span class="tag">Engineering</span>
+                <span class="tag">Contact</span>
+            </div>
+        </div>
+    </a>
+</div>
+
+           
+
+
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-content">
+            <div class="social-links">
+                <a href="https://www.linkedin.com/in/shoaibghori/" class="social-link" aria-label="LinkedIn">
+                    <i class="fab fa-linkedin-in"></i>
+                </a>
+                <a href="https://github.com/msghori" class="social-link" aria-label="GitHub">
+                    <i class="fab fa-github"></i>
+                </a>
+                <!-- <a href="#" class="social-link" aria-label="Dribbble">
+                    <i class="fab fa-dribbble"></i>
+                </a> -->
+                <!-- <a href="#" class="social-link" aria-label="Behance">
+                    <i class="fab fa-behance"></i>
+                </a> -->
+            </div>
+            <p class="footer-text">&copy; 2025 Creative Portfolio. Designed with passion and precision.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Add smooth loading animation for portfolio items
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.animationDelay = '0s';
+                    entry.target.classList.add('animate');
+                }
+            });
+        }, observerOptions);
+
+        // Observe all portfolio items
+        document.querySelectorAll('.portfolio-item').forEach(item => {
+            observer.observe(item);
+        });
+
+        // Add parallax effect to background
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const rate = scrolled * -0.5;
+            document.querySelector('.bg-animation').style.transform = `translateY(${rate}px)`;
+        });
+
+        // Add dynamic stats counter animation
+        const stats = document.querySelectorAll('.stat-number');
+        const animateStats = () => {
+            stats.forEach(stat => {
+                const target = parseInt(stat.textContent);
+                const increment = target / 50;
+                let current = 0;
+                
+                const updateStat = () => {
+                    if (current < target) {
+                        current += increment;
+                        stat.textContent = Math.ceil(current) + '+';
+                        requestAnimationFrame(updateStat);
+                    } else {
+                        stat.textContent = target + '+';
+                    }
+                };
+                
+                updateStat();
+            });
+        };
+
+        // Trigger stats animation when header is visible
+        const headerObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    setTimeout(animateStats, 500);
+                    headerObserver.unobserve(entry.target);
+                }
+            });
+        });
+
+        headerObserver.observe(document.querySelector('header'));
+    </script>
+</body>
+</html>
